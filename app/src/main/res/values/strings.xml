@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Wildlife Spotter</string>
+    <string name="welcome_message">Welcome to Wildlife Spotter!</string>
+    <string name="capture_photo">Capture Photo</string>
+    <string name="identify_species">Identify Species</string>
+    <string name="points_awarded">Points Awarded: %1$d</string>
+    <string name="species_found">Species Found: %1$s</string>
+    <string name="rarity_info">Rarity: %1$s</string>
+    <string name="location_info">Location: %1$s</string>
+    <string name="error_message">An error occurred. Please try again.</string>
+    <string name="no_species_identified">No species identified. Please try again.</string>
+    <string name="photo_quality">Photo Quality: %1$s</string>
+    <string name="leaderboard_title">Leaderboard</string>
+    <string name="collection_title">Your Collection</string>
+    <string name="map_title">Sightings Map</string>
+</resources>

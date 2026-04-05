@@ -1,47 +1,48 @@
 package com.wildlifespotter.data.repository
 
 import com.wildlifespotter.data.local.dao.SpeciesDao
-import com.wildlifespotter.data.remote.api.SpeciesIdentificationApi
+import com.wildlifespotter.data.local.entity.SpeciesEntity
 import com.wildlifespotter.domain.model.Species
-import com.wildlifespotter.domain.model.PointsResult
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class SpeciesRepository @Inject constructor(
-    private val speciesDao: SpeciesDao,
-    private val speciesIdentificationApi: SpeciesIdentificationApi
+    private val speciesDao: SpeciesDao
 ) {
-    suspend fun getSpeciesById(id: String): Species? {
-        return withContext(Dispatchers.IO) {
-            speciesDao.getSpeciesById(id)
+    fun getSpeciesById(id: Long): Species? {
+        return speciesDao.getSpeciesById(id.toString())?.toSpecies()
+    }
+
+    fun getSpeciesByName(name: String): Species? {
+        return speciesDao.getAllSpecies().find { 
+            it.name.equals(name, ignoreCase = true) 
+        }?.toSpecies()
+    }
+
+    fun getAllSpecies(): List<Species> {
+        return speciesDao.getAllSpecies().map { it.toSpecies() }
+    }
+
+    fun saveSpecies(species: SpeciesEntity) {
+        speciesDao.insertSpecies(species)
+    }
+
+    fun getRarityScore(speciesId: String): Int {
+        // Return rarity score from 1-10 based on species
+        return when (getSpeciesById(speciesId.toLongOrNull() ?: 0L)?.rarity) {
+            "VERY_RARE" -> 10
+            "RARE" -> 8
+            "UNCOMMON" -> 5
+            "COMMON" -> 2
+            else -> 5
         }
     }
 
-    suspend fun identifySpecies(image: ByteArray): Species? {
-        return withContext(Dispatchers.IO) {
-            val response = speciesIdentificationApi.identifySpecies(image)
-            response?.let {
-                Species(it.name, it.rarity, it.imageUrl)
-            }
-        }
-    }
-
-    suspend fun calculatePoints(species: Species, photoQuality: Int): PointsResult {
-        return withContext(Dispatchers.IO) {
-            val rarityPoints = when (species.rarity) {
-                "Common" -> 1
-                "Uncommon" -> 3
-                "Rare" -> 5
-                "Very Rare" -> 10
-                else -> 0
-            }
-            val qualityPoints = when {
-                photoQuality > 80 -> 5
-                photoQuality > 50 -> 3
-                else -> 1
-            }
-            PointsResult(rarityPoints + qualityPoints)
-        }
+    private fun SpeciesEntity.toSpecies(): Species {
+        return Species(
+            id = id.toString(),
+            commonName = name,
+            scientificName = scientificName,
+            rarity = rarity
+        )
     }
 }

@@ -3,43 +3,41 @@ package com.wildlifespotter.data.repository
 import com.wildlifespotter.data.local.dao.SightingDao
 import com.wildlifespotter.data.local.entity.SightingEntity
 import com.wildlifespotter.domain.model.Sighting
-import com.wildlifespotter.domain.usecase.CalculatePointsUseCase
-import com.wildlifespotter.domain.usecase.EvaluateRarityUseCase
 import javax.inject.Inject
 
 class SightingRepository @Inject constructor(
-    private val sightingDao: SightingDao,
-    private val calculatePointsUseCase: CalculatePointsUseCase,
-    private val evaluateRarityUseCase: EvaluateRarityUseCase
+    private val sightingDao: SightingDao
 ) {
-    suspend fun saveSighting(sighting: Sighting) {
+    fun saveSighting(sighting: Sighting) {
         val sightingEntity = SightingEntity(
             id = sighting.id,
             speciesId = sighting.speciesId,
             userId = sighting.userId,
             location = sighting.location,
-            photoUri = sighting.photoUri,
-            timestamp = sighting.timestamp
+            photoUrl = sighting.photoUrl,
+            timestamp = sighting.timestamp,
+            rarityPoints = sighting.rarityPoints,
+            photoQualityScore = sighting.qualityScore
         )
-        sightingDao.insert(sightingEntity)
+        sightingDao.insertSighting(sightingEntity)
     }
 
-    suspend fun getSightings(): List<Sighting> {
-        return sightingDao.getAll().map { entity ->
+    fun getSightingsByUserId(userId: Long): List<Sighting> {
+        return sightingDao.getSightingsByUserId(userId).map { entity ->
             Sighting(
                 id = entity.id,
                 speciesId = entity.speciesId,
                 userId = entity.userId,
                 location = entity.location,
-                photoUri = entity.photoUri,
-                timestamp = entity.timestamp
+                photoUrl = entity.photoUrl,
+                timestamp = entity.timestamp,
+                rarityPoints = entity.rarityPoints,
+                qualityScore = entity.photoQualityScore
             )
         }
     }
 
-    suspend fun evaluateSighting(sighting: Sighting): Pair<Int, String> {
-        val points = calculatePointsUseCase.execute(sighting)
-        val rarity = evaluateRarityUseCase.execute(sighting.speciesId)
-        return Pair(points, rarity)
+    fun getAllSightings(): List<Sighting> {
+        return emptyList() // Placeholder
     }
 }

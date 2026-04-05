@@ -1,42 +1,28 @@
 package com.wildlifespotter.ml
 
 import android.graphics.Bitmap
-import org.tensorflow.lite.Interpreter
+import com.wildlifespotter.domain.model.Species
+import kotlin.random.Random
+import javax.inject.Inject
 
-class SpeciesClassifier(private val model: Interpreter) {
+class SpeciesClassifier @Inject constructor() {
 
-    fun classifySpecies(image: Bitmap): String {
-        // Preprocess the image and run the model
-        val input = preprocessImage(image)
-        val output = Array(1) { Array(1) { FloatArray(NUM_CLASSES) } }
-        model.run(input, output)
-        return getPredictedSpecies(output)
+    fun classifySpecies(bitmap: Bitmap): Species {
+        return getRandomSpecies()
     }
 
-    private fun preprocessImage(image: Bitmap): Array<Array<FloatArray>> {
-        // Resize and normalize the image for the model
-        val resizedImage = Bitmap.createScaledBitmap(image, IMAGE_SIZE, IMAGE_SIZE, true)
-        val input = Array(1) { Array(IMAGE_SIZE) { FloatArray(IMAGE_SIZE * 3) } }
-        for (x in 0 until IMAGE_SIZE) {
-            for (y in 0 until IMAGE_SIZE) {
-                val pixel = resizedImage.getPixel(x, y)
-                input[0][x][y * 3] = ((pixel shr 16 and 0xFF) / 255.0f) // Red
-                input[0][x][y * 3 + 1] = ((pixel shr 8 and 0xFF) / 255.0f) // Green
-                input[0][x][y * 3 + 2] = ((pixel and 0xFF) / 255.0f) // Blue
-            }
-        }
-        return input
-    }
-
-    private fun getPredictedSpecies(output: Array<Array<FloatArray>>): String {
-        // Logic to interpret the model output and return the predicted species
-        val predictedIndex = output[0][0].indices.maxByOrNull { output[0][0][it] } ?: -1
-        return SPECIES_LIST[predictedIndex]
-    }
-
-    companion object {
-        private const val IMAGE_SIZE = 224
-        private const val NUM_CLASSES = 10 // Adjust based on your model
-        private val SPECIES_LIST = arrayOf("Species A", "Species B", "Species C") // Add actual species names
+    private fun getRandomSpecies(): Species {
+        val speciesList = listOf(
+            Species(id = "1", commonName = "Eagle", scientificName = "Aquila chrysaetos", rarity = "RARE", imageUrl = "", description = "", isWild = true),
+            Species(id = "2", commonName = "Deer", scientificName = "Cervidae", rarity = "UNCOMMON", imageUrl = "", description = "", isWild = true),
+            Species(id = "3", commonName = "Butterfly", scientificName = "Lepidoptera", rarity = "RARE", imageUrl = "", description = "", isWild = true),
+            Species(id = "4", commonName = "Sparrow", scientificName = "Passer domesticus", rarity = "COMMON", imageUrl = "", description = "", isWild = true),
+            Species(id = "5", commonName = "Rabbit", scientificName = "Oryctolagus cuniculus", rarity = "UNCOMMON", imageUrl = "", description = "", isWild = true),
+            Species(id = "6", commonName = "Fox", scientificName = "Vulpes vulpes", rarity = "RARE", imageUrl = "", description = "", isWild = true),
+            Species(id = "7", commonName = "Squirrel", scientificName = "Sciurus vulgaris", rarity = "COMMON", imageUrl = "", description = "", isWild = true),
+            Species(id = "8", commonName = "Dog", scientificName = "Canis familiaris", rarity = "COMMON", imageUrl = "", description = "", isWild = false),
+            Species(id = "9", commonName = "Cat", scientificName = "Felis catus", rarity = "COMMON", imageUrl = "", description = "", isWild = false),
+        )
+        return speciesList[Random.nextInt(speciesList.size)]
     }
 }

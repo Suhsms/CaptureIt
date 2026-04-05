@@ -1,6 +1,5 @@
 package com.wildlifespotter.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,7 +8,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import com.wildlifespotter.ui.camera.CameraScreen
 import com.wildlifespotter.ui.theme.WildlifeSpotterTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

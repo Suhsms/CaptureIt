@@ -1,12 +1,19 @@
+package com.wildlifespotter.di
+
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Singleton
 
 @Module
-class NetworkModule {
+@InstallIn(SingletonComponent::class)
+object NetworkModule {
 
     @Provides
+    @Singleton
     fun provideRetrofit(): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://api.example.com/") // Replace with your actual base URL
@@ -14,13 +21,5 @@ class NetworkModule {
             .build()
     }
 
-    @Provides
-    fun provideSpeciesIdentificationApi(retrofit: Retrofit): SpeciesIdentificationApi {
-        return retrofit.create(SpeciesIdentificationApi::class.java)
-    }
-
-    @Provides
-    fun provideRarityApi(retrofit: Retrofit): RarityApi {
-        return retrofit.create(RarityApi::class.java)
-    }
+    // Add API provides as needed
 }

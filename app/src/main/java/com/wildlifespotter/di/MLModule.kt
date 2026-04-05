@@ -1,5 +1,6 @@
 package com.wildlifespotter.di
 
+import com.wildlifespotter.ml.SpeciesClassifier
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,8 +9,11 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object MLModule {
 
-    // Add dependencies as needed
-    // Dependencies will be provided by DatabaseModule and NetworkModule
+    @Provides
+    @Singleton
+    fun provideSpeciesClassifier(): SpeciesClassifier {
+        return SpeciesClassifier()
+    }
 }

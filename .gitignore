@@ -1,0 +1,90 @@
+# Gradle files
+.gradle/
+build/
+.gradle
+
+# Local configuration file
+local.properties
+
+# IDE (Android Studio)
+.idea/
+.idea/*
+*.iml
+*.iws
+*.ipr
+*.ism
+*.iml.bak
+.vscode/
+.classpath
+.project
+.settings/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Build outputs
+*.apk
+*.aar
+*.jar
+*.zip
+*.tar.gz
+
+# Gradle wrapper files (optional - some projects commit these)
+# Uncomment if you want to exclude wrapper
+# gradle/wrapper/gradle-wrapper.jar
+
+# Kotlin
+*.kotlin_module
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Generated files
+bin/
+gen/
+out/
+
+# Test outputs
+test-results/
+*.log
+
+# Node modules (if using any JS tools)
+node_modules/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+.mvn/timing.properties
+
+# Misc
+.DS_Store
+*.iml
+*.iws
+*.ipr
+.gradle
+local.properties

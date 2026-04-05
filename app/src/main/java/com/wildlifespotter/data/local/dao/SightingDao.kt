@@ -9,14 +9,14 @@ import com.wildlifespotter.data.local.entity.SightingEntity
 @Dao
 interface SightingDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertSighting(sighting: SightingEntity)
+    fun insertSighting(sighting: SightingEntity)
 
     @Query("SELECT * FROM sightings WHERE userId = :userId")
-    suspend fun getSightingsByUserId(userId: Long): List<SightingEntity>
+    fun getSightingsByUserId(userId: Long): List<SightingEntity>
 
     @Query("SELECT * FROM sightings WHERE id = :sightingId LIMIT 1")
-    suspend fun getSightingById(sightingId: Long): SightingEntity?
+    fun getSightingById(sightingId: Long): SightingEntity?
 
     @Query("DELETE FROM sightings WHERE id = :sightingId")
-    suspend fun deleteSightingById(sightingId: Long)
+    fun deleteSightingById(sightingId: Long)
 }

@@ -1,3 +1,5 @@
+package com.wildlifespotter.di
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -8,11 +10,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    @Provides
-    @Singleton
-    fun provideSomeDependency(): SomeDependency {
-        return SomeDependency()
-    }
-
-    // Add other dependencies as needed
+    // Add dependencies as needed
+    // Dependencies will be provided by DatabaseModule and NetworkModule
 }

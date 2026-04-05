@@ -1,0 +1,38 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.wildlifespotter.app-mergeDebugResources-2:/values-v16/values-v16.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\suhas\\.gradle\\caches\\transforms-4\\77b7fac1fa57da947dc5a142cacc6635\\transformed\\core-1.10.0\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "65",
+                        "endOffsets": "116"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\suhas\\.gradle\\caches\\transforms-4\\b48da9f753d4b7434df56adbe8a02512\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "223"
+                    },
+                    "to": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "121",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "289"
+                    }
+                }
+            ]
+        }
+    ]
+}

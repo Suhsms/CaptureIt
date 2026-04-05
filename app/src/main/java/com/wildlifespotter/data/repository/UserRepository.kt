@@ -2,23 +2,21 @@ package com.wildlifespotter.data.repository
 
 import com.wildlifespotter.data.local.dao.UserDao
 import com.wildlifespotter.data.local.entity.UserEntity
+import com.wildlifespotter.domain.model.User
 import javax.inject.Inject
 
 class UserRepository @Inject constructor(private val userDao: UserDao) {
 
-    suspend fun getUserById(userId: String): UserEntity? {
+    fun getUserById(userId: Long): UserEntity? {
         return userDao.getUserById(userId)
     }
 
-    suspend fun insertUser(user: UserEntity) {
+    fun insertUser(user: UserEntity) {
         userDao.insertUser(user)
     }
 
-    suspend fun updateUser(user: UserEntity) {
-        userDao.updateUser(user)
-    }
-
-    suspend fun deleteUser(userId: String) {
-        userDao.deleteUser(userId)
+    fun getLeaderboard(): List<User> {
+        // Return empty list for now - can be populated from database later
+        return emptyList()
     }
 }
